@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProvaController;
 
+// Home
 Route::get('/', function () {
     return view('home', [
         'pageTitle' => 'Home',
