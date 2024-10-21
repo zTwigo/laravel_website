@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProvaController;
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 
 Route::get('/', function () {
     return view('home', [
@@ -10,24 +12,23 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/about', function () {
-    return view('about');
+Route::get('/prova', function(){
+    // Only created
+    $post1 = Post::factory()->make();
+
+    // Saved in the database
+    $user = Post::factory()->create();
+
+    return $user;
 });
 
-Route::get('/example', function() {
-    $items = ['Item1', 'Item2', 'Item3'];
-    $title = 'Blade example';
-    $numbers = [1,2,3];
-    $emptyArray = [1];
-    $someValue = 'qualcosa';
+// ---------- POSTS ----------
+Route::get('/posts', function() {
+    $posts = Post::all();
 
-    // Compact function creates a dictionary
-    return view('example', compact('items','title','numbers','emptyArray','someValue'));
-});
+    return view ('posts.index', ['posts' => $posts]);
+})->name('posts.index');
 
-// Array of two elements in which:
-// 1: the first one is the class we are using a method from
-// 2: the function we want to use from that class
-Route::get('/prova', [ProvaController::class, 'calculate']);
+Route::get('/posts/create', [PostController::class, 'createPost']);
 
-Route::post('/form', [ProvaController::class, 'fetchData']);
+Route::get('/posts/delete/{id}', [PostController::class, 'deletePost']);
