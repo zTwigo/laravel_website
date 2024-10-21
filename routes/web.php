@@ -5,6 +5,7 @@ use App\Http\Controllers\ProvaController;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
 
+// Home
 Route::get('/', function () {
     return view('home', [
         'pageTitle' => 'Home',
